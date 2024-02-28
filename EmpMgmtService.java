@@ -101,7 +101,7 @@ public class EmpMgmtService {
         Database db = new Database();        
        try{
             con = db.createConnection();
-            pstmt = con.prepareStatement("select * from employee where name=?");
+            pstmt = con.prepareStatement("select * from employee where designation=?");
             pstmt.setString(1, des);
             res = pstmt.executeQuery();
             while (res.next()) {

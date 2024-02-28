@@ -11,6 +11,9 @@ public class Hrms {
             System.out.print("1. Employee management\n2. Attendance management\n0. Exit\nEnter your choice: ");
             choice = sc.nextInt();
             switch(choice){
+                case 0:
+                    System.out.println("****** Thank you ******");
+                    break;
                 case 1:
                     EmpMgmtService service = new EmpMgmtService();
                     do{
@@ -18,7 +21,6 @@ public class Hrms {
                         choice = sc.nextInt();
                         switch(choice){
                             case 0:
-                                System.out.println("****** Thank you ******");
                                 break;
                             case 1:
                                 try{
@@ -67,6 +69,7 @@ public class Hrms {
                                         break;
                                         default:
                                         System.out.println("Enter valid choice");
+                                        break;
                                     }
                                 }while(choice!=0);
                                 choice = 1;
