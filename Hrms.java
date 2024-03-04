@@ -1,14 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Hrms {
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) {   
         Scanner sc = new Scanner(System.in);
         int choice, eid;
         String name, des, dept, contact;
         System.out.println("********************** WELCOME **********************");
         do{
-            System.out.print("1. Employee management\n2. Attendance management\n0. Exit\nEnter your choice: ");
+            System.out.print("1. Employee management\n2. Attendance management\n3. Leave management\n0. Exit\nEnter your choice: ");
             choice = sc.nextInt();
             switch(choice){
                 case 0:
@@ -17,7 +16,7 @@ public class Hrms {
                 case 1:
                     EmpMgmtService service = new EmpMgmtService();
                     do{
-                        System.out.print("1. Add Employee\n2. View All Employees\n3. Search Employee \n4. Remove employee\nEnter your choice: ");
+                        System.out.print("1. Add Employee\n2. View All Employees\n3. Search Employee \n4. Remove employee\n0. Go back\nEnter your choice: ");
                         choice = sc.nextInt();
                         switch(choice){
                             case 0:
@@ -45,7 +44,7 @@ public class Hrms {
                                 break;
                             case 3:
                                 do{
-                                    System.out.print("1.Search by EID\n2. Search by name\n3. Search by designation\n4. Search by department\n0. Exit\nEnter your choice: ");
+                                    System.out.print("1.Search by EID\n2. Search by name\n3. Search by designation\n4. Search by department\n0. Go back\nEnter your choice: ");
                                     choice = sc.nextInt();
                                     switch(choice){
                                         case 0: 
@@ -66,6 +65,9 @@ public class Hrms {
                                             service.searchByDesignation(des);
                                         break;
                                         case 4:
+                                        System.out.print("Enter designation to search employees: ");
+                                            dept = sc.next();
+                                            service.searchByDepartment(dept);
                                         break;
                                         default:
                                         System.out.println("Enter valid choice");
@@ -73,6 +75,11 @@ public class Hrms {
                                     }
                                 }while(choice!=0);
                                 choice = 1;
+                                break;
+                            case 4:
+                                System.out.print("Enter employee ID to remove: ");
+                                int id = sc.nextInt();
+                                service.removeById(id);
                                 break;
                             default: 
                                 System.out.println("Enter valid choice");
