@@ -16,17 +16,17 @@ public class AttMgmtService {
             pstmt = con.prepareStatement("select * from attendance where date=?");
             pstmt.setDate(1, date);
             res = pstmt.executeQuery();
+            System.out.println("---------------------------------");
             while (res.next()) {
-                System.out.println("----------------------------------------------------------------");
+                
                 System.out.println(
-                    "Id: " + res.getString("eid") + "\n" + 
-                    "Name: " + res.getString("name") + "\n" + 
-                    "Designation: " + res.getString("designation")  + "\n" + 
-                    "Department: "+ res.getString("dept")  + "\n" + 
-                    "Contact: " + res.getString("contact")
+                    "|" + res.getString("date") + "|" + 
+                    "|" + res.getString("eid") + "|" + 
+                    "|" + res.getString("status")  + "|"  
                 );
-                System.out.println("----------------------------------------------------------------");
+                
             }
+            System.out.println("---------------------------------");
         }
         catch(Exception e)
         {
