@@ -122,6 +122,9 @@ public class Hrms {
 
                                             break;
                                         case 2:
+                                            System.out.print("Enter eid: ");
+                                            eid = sc.nextInt();
+                                            att.getAttendanceByEid(eid);
                                             break;
                                         default:
                                             System.out.println("Enter valid choice!");
