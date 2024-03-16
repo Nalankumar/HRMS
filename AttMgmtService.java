@@ -3,12 +3,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class AttMgmtService {
     private Connection con;
     private PreparedStatement pstmt;
     private Statement stmt;
     private ResultSet res;
+    
     public void getAttendanceByDate(Date date){
         Database db = new Database();        
         try{
@@ -18,26 +20,24 @@ public class AttMgmtService {
             res = pstmt.executeQuery();
             int a = 0,p = 0,l = 0;
             System.out.println("---------------------------------");
-            while (res.next()) {
-                
+            while (res.next()) {    
                 System.out.println(
                     "|" + res.getString("date") + "|" + 
                     "|" + res.getString("eid") + "|" + 
                     "|" + res.getString("status")  + "|"  
                 );
-                switch(res.getString("status")){
-                    case "a":
-                        a++;
-                        break;
-                    case "p":
+                int sta = res.getInt("status");
+                switch(sta){
+                    case 0:
                         p++;
                         break;
-                    case "l":
+                    case 1:
+                        a++;
+                        break;
+                    case 2:
                         break;
                 }
-            }
-                
-            
+            }  
             System.out.println("---------------------------------");
             System.out.println("Absent: "+ a +"\nPresent:" + p +"\nLeave: " + l);
         }
@@ -45,8 +45,8 @@ public class AttMgmtService {
         {
             System.err.println(e);
         } 
-    
     }
+    
     public void getAttendanceByEid(int eid){
         Database db = new Database();        
         try{
@@ -57,24 +57,23 @@ public class AttMgmtService {
             System.out.println("---------------------------------");
             int a = 0, l = 0, p = 0;
             while (res.next()) {
-                
                 System.out.println(
                     "|" + res.getString("date") + "|" + 
                     "|" + res.getString("eid") + "|" + 
                     "|" + res.getString("status")  + "|"  
                 );
-                switch(res.getString("status")){
-                    case "a":
-                        a++;
-                        break;
-                    case "p":
+                int sta = res.getInt("status");
+                switch(sta){
+                    case 0:
                         p++;
                         break;
-                    case "l":
+                    case 1:
+                        a++;
                         break;
-                    }
-
-                
+                    case 2:
+                        l++;
+                        break;
+                    }    
             }
             System.out.println("---------------------------------");
             System.out.println("Absent: "+ a +"\nPresent:" + p +"\nLeave: " + l);
@@ -84,5 +83,29 @@ public class AttMgmtService {
             System.err.println(e);
         } 
 
+    }
+    public void takeAttendance(ResultSet res){
+        Database db = new Database();        
+        Scanner scan = new Scanner(System.in);
+        try{
+            con = db.createConnection();
+            pstmt = con.prepareStatement("insert into attendance values(?,?,?)");
+            long millis = System.currentTimeMillis();
+            Date date = new Date(millis);
+            while(res.next()){
+                int eid = res.getInt("eid");
+                System.out.print("Enter attendance for Emp ID "+ eid + ": ");
+                int att = scan.nextInt();
+                pstmt.setInt(1, eid);
+                pstmt.setDate(2, date);
+                pstmt.setInt(3, att);    
+                pstmt.executeUpdate();
+            }
+            System.out.println("Attendance has been taken!");
+        }
+        catch(Exception e){
+            System.err.println(e);
+        }
+        scan.close();
     }
 }

@@ -1,4 +1,5 @@
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Hrms {
@@ -6,6 +7,8 @@ public class Hrms {
         Scanner sc = new Scanner(System.in);
         int choice, eid;
         String name, des, dept, contact;
+        ResultSet res;
+        EmpMgmtService service = new EmpMgmtService();
         System.out.println("********************** WELCOME **********************");
         do{
             // Main menu
@@ -17,7 +20,7 @@ public class Hrms {
                     break;
                 case 1:
                     //Employee management
-                    EmpMgmtService service = new EmpMgmtService();
+                    
                     do{
                         System.out.print("1. Add Employee\n2. View All Employees\n3. Search Employee \n4. Remove employee\n0. Go back\nEnter your choice: ");
                         choice = sc.nextInt();
@@ -43,7 +46,8 @@ public class Hrms {
                                 }
                                 break;
                             case 2:
-                                service.getAllEmployees();
+                                res = service.getAllEmployees();
+                                service.displayEmployees(res);
                                 break;
                             case 3:
                                 //Employee Search
@@ -56,23 +60,27 @@ public class Hrms {
                                         case 1:
                                             System.out.print("Enter id of employee to search: ");
                                             eid = sc.nextInt();
-                                            service.searchById(eid);
+                                            res = service.searchById(eid);
+                                            service.displayEmployees(res);
                                             break;
                                         case 2:
                                             System.out.print("Enter name of employee to search: ");
                                             name = sc.next();
-                                            service.searchByName(name);
+                                            res = service.searchByName(name);
+                                            service.displayEmployees(res);
                                             break;
                                         case 3:
                                         System.out.print("Enter designation to search employees: ");
                                             des = sc.next();
-                                            service.searchByDesignation(des);
-                                        break;
+                                            res = service.searchByDesignation(des);
+                                            service.displayEmployees(res);
+                                            break;
                                         case 4:
-                                        System.out.print("Enter designation to search employees: ");
+                                            System.out.print("Enter designation to search employees: ");
                                             dept = sc.next();
-                                            service.searchByDepartment(dept);
-                                        break;
+                                            res = service.searchByDepartment(dept);
+                                            service.displayEmployees(res);
+                                            break;
                                         default:
                                         System.out.println("Enter valid choice");
                                         break;
@@ -103,23 +111,28 @@ public class Hrms {
                                 break;
                             case 1:
                                 System.out.println("To mark employees attendance:\n0. Present\n1. Absent\n2. Leave");
+                                AttMgmtService attmg = new AttMgmtService();
+                                res = service.getAllEmployees();
+                                attmg.takeAttendance(res);    
                                 break;
                             case 2:
                                 // View Attendance
                                 do{
-
-                                    System.out.print("View Attendance based on following choices\n1. By date\n2. By employee\nEnter choice: ");
+                                    System.out.print("View Attendance based on following choices\n1. By date\n2. By employee\n0. Go back\nEnter choice: ");
                                     choice = sc.nextInt();
                                     switch(choice){
                                         case 0:
                                             break;
                                         case 1:
-                                            System.out.print("Enter date (yyyy/mm/dd): ");
+                                            System.out.print("Enter date (yyyy-mm-dd): ");
                                             String date = sc.next();
-
+                                            try{
                                                 Date dateobj = Date.valueOf(date);
                                                 att.getAttendanceByDate(dateobj);
-
+                                            }
+                                            catch(IllegalArgumentException e){
+                                                System.err.println("Enter valid date!\n");
+                                            }
                                             break;
                                         case 2:
                                             System.out.print("Enter eid: ");
@@ -142,8 +155,7 @@ public class Hrms {
  
                 default: 
                     System.out.println("Enter valid choice");
-                    break;
-                
+                    break;               
         }
         }while(choice!=0);        
         sc.close();        
