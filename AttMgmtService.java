@@ -2,13 +2,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Scanner;
 
 public class AttMgmtService {
     private Connection con;
     private PreparedStatement pstmt;
-    private Statement stmt;
     private ResultSet res;
     
     public void getAttendanceByDate(Date date){
@@ -84,6 +82,7 @@ public class AttMgmtService {
         } 
 
     }
+
     public void takeAttendance(ResultSet res){
         Database db = new Database();        
         Scanner scan = new Scanner(System.in);

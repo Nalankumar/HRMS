@@ -105,15 +105,14 @@ public class Hrms {
                     AttMgmtService att = new AttMgmtService();
                     do{
                         System.out.print("0. Go back\n1. Mark Attendance\n2. View Attendance\nEnter choice: ");
-                        choice = sc.nextInt();
+                       choice = sc.nextInt();
                         switch(choice){
                             case 0:
                                 break;
                             case 1:
                                 System.out.println("To mark employees attendance:\n0. Present\n1. Absent\n2. Leave");
-                                AttMgmtService attmg = new AttMgmtService();
                                 res = service.getAllEmployees();
-                                attmg.takeAttendance(res);    
+                                att.takeAttendance(res);    
                                 break;
                             case 2:
                                 // View Attendance
@@ -147,12 +146,10 @@ public class Hrms {
                                 break;
                             default:
                                 System.out.println("Enter valid choice!");
-                        }
-                        
+                        }  
                     }while(choice!=0);
                     choice = 2;
                     break;
- 
                 default: 
                     System.out.println("Enter valid choice");
                     break;               
