@@ -8,6 +8,12 @@
 
   Overall, this application enhances the efficiency of HR operations, promoting organized and effective management of employee data, attendance, and leave. It contributes to a more productive and well-managed workforce, ensuring that HR tasks are handled with ease and precision.
 
+## Table of Contents
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## **Tech Stack**
 [![Tech Stack](https://skillicons.dev/icons?i=java,mysql)](https://skillicons.dev)
 ## Installation
@@ -38,9 +44,9 @@ To run a Java program with JDBC connectivity to MySQL, follow these steps:
 
 Import the sql file from the directory using the command line:
 ```
-mysql -u username -p testdb < path/to/yourfile.sql
+mysql -u username -p HRMS < path_to_sqlfile/hrms.sql
 ```
-Replace username with your MySQL username and path/to/yourfile.sql with the path to the SQL file.
+Replace username with your MySQL username and path_to/hrms.sql with the path to the SQL file.
 #### 3. Add JDBC Driver to the Project
 - Place the `mysql-connector-java-8.x.x.jar` file in your project directory.
 
