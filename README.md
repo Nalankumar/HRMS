@@ -15,7 +15,8 @@
 - [License](#license)
 
 ## **Tech Stack**
-[![Tech Stack](https://skillicons.dev/icons?i=java,mysql)](https://skillicons.dev)
+- Java
+- MySQL
 ## Installation
 To run a Java program with JDBC connectivity to MySQL, follow these steps:
 ### Prerequisites
